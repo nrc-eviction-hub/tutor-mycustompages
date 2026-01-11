@@ -1,12 +1,14 @@
 from tutor import hooks
 
-# Add mycustompages to LMS Django settings
-hooks.Filters.APP_SETTINGS.add_item(
+# Add mycustompages to LMS INSTALLED_APPS
+hooks.Filters.ENV_PATCHES.add_item(
     (
-        "lms",
-        {
-            "INSTALLED_APPS": ["mycustompages"],
-        },
+        "lms-env",
+        """
+# MyCustomPages plugin
+if "mycustompages" not in INSTALLED_APPS:
+    INSTALLED_APPS.append("mycustompages")
+"""
     )
 )
 
